@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Code Quiz</title>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <header>
+
+        <!-- Link accessing high scores in local storage -->
+        <a href="" id="high-scores">View Highscores</a>
+
+        <!-- Timer counting down from (15 * question.js array length) -->
+        <p id="time">Time: <span>Timer output goes here, starts at 0 until start quiz button pushed</span></p>
+
+    </header>
+
+    <!-- Main content section that houses start screen, questions, highscore initals input -->
+    <main class="clear-floats">
+
+        <!-- Start Screen Title -->
+        <h1>Javascipt Code Quiz Challenge</h1>
+
+        <!-- Quiz description -->
+        <p>Are you ready to test your Javascipt knowledge? This quiz is comprised of 5 multiple-choice questions. You have an average of 15 seconds to complete each question. If you answer a question incorrectly, the timer will subtract 15 seconds and continue counting down. If you answer correctly, the timer continues to count down without subtracting any time. Your final score is based on the amount of time remaining on the timer at the end of the quiz. Pretty simple, right? Click the start button below to begin!</p>
+
+        <button id="start-quiz-btn">Start Quiz</button>
+
+    </main>
+
+    <script src="script.js"></script>
+
+    <script src="questions.js"></script>  
+
+</body>
+</html>

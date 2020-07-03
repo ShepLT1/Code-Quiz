@@ -1,0 +1,30 @@
+main {
+
+    margin: 0 auto;
+    width: 50%;
+
+}
+
+h1 {
+
+    font-size: 200%;
+
+}
+
+#high-scores {
+
+    float: left;
+
+}
+
+#time {
+
+    float: right;
+
+}
+
+.clear-floats {
+
+    clear: both;
+
+}
