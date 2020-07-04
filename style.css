@@ -1,13 +1,7 @@
 main {
 
     margin: 0 auto;
-    width: 50%;
-
-}
-
-h1 {
-
-    font-size: 200%;
+    width: 75%;
 
 }
 
@@ -28,3 +22,19 @@ h1 {
     clear: both;
 
 }
+
+.choice-btn {
+
+    display: block;
+    margin-bottom: 5px;
+
+}
+
+#final-score-p {
+
+    display: block;
+
+}
+
+
+

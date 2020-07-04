@@ -8,8 +8,8 @@ var questions = [
     },
     {
         title: "Which of the following is NOT used to select a html element on the webpage?",
-        choices: [".addEventListener", ".getElementById", ".querySelector", ".appendChild"],
-        answer: ".appendChild"
+        choices: [".getElementByClassName", ".getElementById", ".querySelector", ".addEventListener"],
+        answer: ".addEventListener"
 
     },
     {
@@ -19,15 +19,15 @@ var questions = [
 
     },
     {
-        title: "Question 4",
-        choices: ["a", "b", "c", "d"],
-        answer: "a"
+        title: "Local storage is unable to store which of the following?",
+        choices: ["objects", "strings", "keys", "values"],
+        answer: "objects"
 
     },
     {
-        title: "Question 5",
-        choices: ["e", "f", "g", "h"],
-        answer: "g"
+        title: "Which of the following will return a random number between 5 & 87? Math.floor(Math.random() * ___ ) + ___ ",
+        choices: ["82, 5", "83, 5", "87, 5", "87, 0"],
+        answer: "83, 5"
 
     },
 

@@ -1,40 +1,162 @@
 // For going from question to question, we are just changing the inner html of the question and the possible answers within the buttons
 
+var startButton = document.getElementById("start-quiz-btn");
 
+var mainElement = document.querySelector("main");
+
+var newTitle = document.createElement("h2");
+
+var choiceBtnArr = [];
+
+var j = 0;
+
+var choicesArrLength = questions[j].choices.length;
+
+var timer = "";
+
+var run = "";
+
+var choiceBtn = "";
+
+var choiceAndScoreDiv = "";
+
+var outcomeDiv = "";
+
+var finalScoreP = document.createElement("p");
+
+var initialsForm = document.createElement("form");
+
+var initialsInput = document.createElement("input");
+
+var initialsSubmit = document.createElement("button");
 
 //Write function that replaces question title & choices with next question h2 & buttons, respectively. Do this by inputting value of title property of selected indice for h2 textContent & values of choices property for button textContent
 
-// When start quiz button is clicked, remove start screen elements, display first question/buttons & start timer countdown
+function nextQuestion() {
 
-var startButton = document.getElementById("start-quiz-btn");
+    run = true;
+
+    while (run && j < questions.length) {
+
+        newTitle.textContent = questions[j].title;
+
+        for (k = 0; k < choicesArrLength; k++) {
+
+            document.getElementById(k).textContent = questions[j].choices[k];
+
+        };
+
+        j++;
+
+        run = false;
+
+    };
+
+}
+
+// When start quiz button is clicked, remove start screen elements, display first question/buttons & start timer countdown
 
 startButton.addEventListener("click", function() {
 
-    var mainElement = document.body.children[1];
-
-    var qTitle = document.createElement("h2");
-
-    var choiceButton = [];
-
     mainElement.textContent = "";
 
-    mainElement.appendChild(qTitle);
+    mainElement.appendChild(newTitle);
 
-    for (i = 0; i < 4; i++) {
+    choiceAndScoreDiv = document.createElement("div");
 
-        choiceButton = document.createElement("button");
+    choiceAndScoreDiv.setAttribute("id", "choice-score");
 
-        choiceButton.setAttribute("id", "choice" + (i + 1));
+    mainElement.appendChild(choiceAndScoreDiv);
 
-        mainElement.appendChild(choiceButton);
+    for (i = 0; i < choicesArrLength; i++) {
+
+        choiceBtnArr = document.createElement("button");
+
+        choiceBtnArr.setAttribute("id", i);
+
+        choiceBtnArr.setAttribute("class", "choice-btn");
+
+        choiceAndScoreDiv.appendChild(choiceBtnArr);
 
     };
+
+    outcomeDiv = document.createElement("div");
+
+    outcomeDiv.setAttribute("id", "outcome");
+
+    mainElement.appendChild(outcomeDiv);
+
+    nextQuestion();
 
     // run function that replaces question title & choices with next question h2 & buttons, respectively
 
 });
 
 //When user clicks a button, add 1 to the counting variable, replace previous question textContent with textContent of new question associated with the next indice, and change boolean value to stop the loop until next button is clicked
+
+mainElement.addEventListener("click", function(event) {
+
+    if (event.target.classList.contains("choice-btn")) {
+
+        if (event.target.textContent === questions[j - 1].answer) {
+
+            outcomeDiv.innerHTML = "<hr> Correct!";
+
+        } else {
+
+            outcomeDiv.innerHTML = "<hr> Incorrect";
+
+        }
+
+        setTimeout(function() {
+
+            outcomeDiv.innerHTML = "";
+
+        }, 1000);
+
+        if (j < questions.length) {
+            
+            nextQuestion();
+
+        } else {
+
+            for (m = 0; m < i; m++) {
+
+                choiceBtn = document.getElementById(m);
+
+                choiceBtn.parentElement.removeChild(choiceBtn);
+
+            }
+
+            // Turn following repetitive code into functions & group variables, setAttributes, appendChild, etc. into sections to look cleaner
+
+            newTitle.textContent = "All Done!";
+
+            finalScoreP.setAttribute("id", "final-score-p");
+
+            initialsInput.setAttribute("type", "text");
+
+            initialsSubmit.setAttribute("type", "submit");
+
+            finalScoreP.textContent = "Your final score is " + timer + ".";
+
+            initialsSubmit.textContent = "Submit";
+
+            choiceAndScoreDiv.appendChild(finalScoreP);
+
+            choiceAndScoreDiv.appendChild(initialsForm);
+
+            initialsForm.innerHTML = "Enter initials: ";
+
+            initialsForm.appendChild(initialsInput);
+
+            initialsForm.appendChild(initialsSubmit);
+
+        }
+
+    };
+
+});
 
 //If user clicked correct answer, display "Correct!" underneath the buttons of new question
 
