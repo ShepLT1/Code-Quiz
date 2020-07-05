@@ -12,17 +12,19 @@ var j = 0;
 
 var choicesArrLength = questions[j].choices.length;
 
-var timer = "x";
+var timer = 1;
 
 var run = "";
 
 var choiceBtn = "";
 
+var lineBreak = document.createElement("br");
+
 var choiceAndScoreDiv = document.createElement("div");
 
 var outcomeDiv = document.createElement("div");;
 
-var finalScoreP = document.createElement("p");
+var scoreDiv = document.createElement("div");
 
 var initialsForm = document.createElement("form");
 
@@ -130,17 +132,19 @@ mainElement.addEventListener("click", function(event) {
 
             newTitle.textContent = "All Done!";
 
-            finalScoreP.setAttribute("id", "final-score-p");
+            scoreDiv.setAttribute("id", "score-div");
+
+            initialsForm.setAttribute("id", "initials-form");
 
             initialsInput.setAttribute("type", "text");
 
             initialsSubmit.setAttribute("type", "submit");
 
-            finalScoreP.textContent = "Your final score is " + timer + ".";
+            scoreDiv.textContent = "Your final score is " + timer + ".";
 
             initialsSubmit.textContent = "Submit";
 
-            choiceAndScoreDiv.appendChild(finalScoreP);
+            choiceAndScoreDiv.appendChild(scoreDiv);
 
             choiceAndScoreDiv.appendChild(initialsForm);
 
@@ -174,6 +178,28 @@ initialsSubmit.addEventListener("click", function(event) {
     });
 
     localStorage.setItem("highScores", JSON.stringify(highScores));
+
+    newTitle.textContent = "Highscores";
+
+    scoreDiv.textContent = "";
+
+    choiceAndScoreDiv.removeChild(document.getElementById("initials-form"));
+
+    console.log(highScores);
+
+    for (var n = 0; n < highScores.length; n++) {
+
+        var eachScoreDiv = document.createElement("div");
+
+        eachScoreDiv.setAttribute("id", n);
+
+        var eachHighScore = highScores[n].user + ": " + highScores[n].score;
+
+        scoreDiv.append(eachScoreDiv);
+
+        document.getElementById(n).append(eachHighScore);
+
+    }
 
 });
 
