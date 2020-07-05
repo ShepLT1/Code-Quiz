@@ -12,15 +12,15 @@ var j = 0;
 
 var choicesArrLength = questions[j].choices.length;
 
-var timer = "";
+var timer = "x";
 
 var run = "";
 
 var choiceBtn = "";
 
-var choiceAndScoreDiv = "";
+var choiceAndScoreDiv = document.createElement("div");
 
-var outcomeDiv = "";
+var outcomeDiv = document.createElement("div");;
 
 var finalScoreP = document.createElement("p");
 
@@ -29,6 +29,8 @@ var initialsForm = document.createElement("form");
 var initialsInput = document.createElement("input");
 
 var initialsSubmit = document.createElement("button");
+
+var highScores = JSON.parse(localStorage.getItem("highScores"));
 
 //Write function that replaces question title & choices with next question h2 & buttons, respectively. Do this by inputting value of title property of selected indice for h2 textContent & values of choices property for button textContent
 
@@ -62,8 +64,6 @@ startButton.addEventListener("click", function() {
 
     mainElement.appendChild(newTitle);
 
-    choiceAndScoreDiv = document.createElement("div");
-
     choiceAndScoreDiv.setAttribute("id", "choice-score");
 
     mainElement.appendChild(choiceAndScoreDiv);
@@ -79,8 +79,6 @@ startButton.addEventListener("click", function() {
         choiceAndScoreDiv.appendChild(choiceBtnArr);
 
     };
-
-    outcomeDiv = document.createElement("div");
 
     outcomeDiv.setAttribute("id", "outcome");
 
@@ -155,6 +153,27 @@ mainElement.addEventListener("click", function(event) {
         }
 
     };
+
+});
+
+initialsSubmit.addEventListener("click", function(event) {
+
+    event.preventDefault();
+
+    if (highScores === null) {
+
+        highScores = [];
+
+    };
+
+    highScores.push({
+
+        user: initialsInput.value.trim(),
+        score: timer
+
+    });
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
 
 });
 
