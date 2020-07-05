@@ -2,6 +2,8 @@
 
 var startButton = document.getElementById("start-quiz-btn");
 
+var headerElement = document.querySelector("header");
+
 var mainElement = document.querySelector("main");
 
 var newTitle = document.createElement("h2");
@@ -20,6 +22,10 @@ var next = "";
 
 var choiceBtn = "";
 
+var returnBtn = document.createElement("button");
+
+var clearBtn = document.createElement("button");
+
 var choiceAndScoreDiv = document.createElement("div");
 
 var outcomeDiv = document.createElement("div");;
@@ -37,6 +43,32 @@ var highScores = JSON.parse(localStorage.getItem("highScores"));
 var runTimer = "";
 
 //Write function that replaces question title & choices with next question h2 & buttons, respectively. Do this by inputting value of title property of selected indice for h2 textContent & values of choices property for button textContent
+
+returnBtn.setAttribute("id", "returnBtn");
+
+returnBtn.setAttribute("class", "btn btn-info");
+
+clearBtn.setAttribute("id", "clearBtn");
+
+clearBtn.setAttribute("class", "btn btn-info");
+
+returnBtn.textContent = "Return to Start";
+
+clearBtn.textContent = "Clear Highscores";
+
+// replace repeated code with the 2 functions below
+
+function setAtt(x, y, z) {
+
+    x.setAttribute(String(y), String(z));
+
+}
+
+function create(x, y) {
+
+    x.createElement(String(y));
+
+}
 
 function nextQuestion() {
 
@@ -102,7 +134,7 @@ startButton.addEventListener("click", function() {
 
         choiceBtnArr.setAttribute("id", i);
 
-        choiceBtnArr.setAttribute("class", "choice-btn");
+        choiceBtnArr.setAttribute("class", "btn btn-info choice-btn");
 
         choiceAndScoreDiv.appendChild(choiceBtnArr);
 
@@ -130,9 +162,17 @@ mainElement.addEventListener("click", function(event) {
 
         } else {
 
-            timer = timer - 15;
-
             outcomeDiv.innerHTML = "<hr> Incorrect";
+
+            if (timer >= 15) {
+
+                timer = timer - 15;
+
+            } else {
+
+                timer = 0;
+
+            }
 
         }
 
@@ -147,6 +187,8 @@ mainElement.addEventListener("click", function(event) {
             nextQuestion();
 
         } else {
+
+            timerSpan.textContent = timer;
 
             stopTimer();
 
@@ -169,6 +211,8 @@ mainElement.addEventListener("click", function(event) {
             initialsInput.setAttribute("type", "text");
 
             initialsSubmit.setAttribute("type", "submit");
+
+            initialsSubmit.setAttribute("class", "btn btn-info");
 
             scoreDiv.textContent = "Your final score is " + timer + ".";
 
@@ -215,13 +259,13 @@ initialsSubmit.addEventListener("click", function(event) {
 
     localStorage.setItem("highScores", JSON.stringify(highScores));
 
+    headerElement.textContent = "";
+
     newTitle.textContent = "Highscores";
 
     scoreDiv.textContent = "";
 
     choiceAndScoreDiv.removeChild(document.getElementById("initials-form"));
-
-    console.log(highScores);
 
     for (var n = 0; n < highScores.length; n++) {
 
@@ -236,6 +280,10 @@ initialsSubmit.addEventListener("click", function(event) {
         document.getElementById(n).append(eachHighScore);
 
     }
+
+    scoreDiv.append(returnBtn);
+
+    scoreDiv.append(clearBtn);
 
 });
 
