@@ -18,11 +18,7 @@ var timerSpan = document.getElementById("timer");
 
 var next = "";
 
-var countDown = true;
-
 var choiceBtn = "";
-
-var lineBreak = document.createElement("br");
 
 var choiceAndScoreDiv = document.createElement("div");
 
@@ -37,6 +33,8 @@ var initialsInput = document.createElement("input");
 var initialsSubmit = document.createElement("button");
 
 var highScores = JSON.parse(localStorage.getItem("highScores"));
+
+var runTimer = "";
 
 //Write function that replaces question title & choices with next question h2 & buttons, respectively. Do this by inputting value of title property of selected indice for h2 textContent & values of choices property for button textContent
 
@@ -62,25 +60,25 @@ function nextQuestion() {
 
 }
 
-function runTimer() {
+function decreaseTime() {
 
-    setInterval(function() {
+    if (timer !== 0) {
 
-        if (timer !== 0) {
+            timer--;
 
-                timer--;
+            timerSpan.textContent = timer;
 
-                timerSpan.textContent = timer;
+    } else {
 
-        } else {
+        return;
 
-            return;
+    };
 
-            // call on function that replaces choice buttons with All Done page (hint: you already have the code in lines 149-183, just make it its own function and call when needed)
+}
 
-        }
+function stopTimer() {
 
-    }, 1000);
+    clearInterval(runTimer);
 
 }
 
@@ -88,7 +86,7 @@ function runTimer() {
 
 startButton.addEventListener("click", function() {
 
-    runTimer();
+    runTimer = setInterval(decreaseTime, 1000);
 
     mainElement.textContent = "";
 
@@ -132,6 +130,8 @@ mainElement.addEventListener("click", function(event) {
 
         } else {
 
+            timer = timer - 15;
+
             outcomeDiv.innerHTML = "<hr> Incorrect";
 
         }
@@ -147,6 +147,8 @@ mainElement.addEventListener("click", function(event) {
             nextQuestion();
 
         } else {
+
+            stopTimer();
 
             for (m = 0; m < i; m++) {
 
@@ -202,6 +204,12 @@ initialsSubmit.addEventListener("click", function(event) {
 
         user: initialsInput.value.trim(),
         score: timer
+
+    });
+
+    highScores.sort(function(a, b) {
+
+        return b.score - a.score;
 
     });
 
