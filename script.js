@@ -12,9 +12,13 @@ var j = 0;
 
 var choicesArrLength = questions[j].choices.length;
 
-var timer = 1;
+var timer = questions.length * 15;
 
-var run = "";
+var timerSpan = document.getElementById("timer");
+
+var next = "";
+
+var countDown = true;
 
 var choiceBtn = "";
 
@@ -38,9 +42,9 @@ var highScores = JSON.parse(localStorage.getItem("highScores"));
 
 function nextQuestion() {
 
-    run = true;
+    next = true;
 
-    while (run && j < questions.length) {
+    while (next && j < questions.length) {
 
         newTitle.textContent = questions[j].title;
 
@@ -52,15 +56,39 @@ function nextQuestion() {
 
         j++;
 
-        run = false;
+        next = false;
 
     };
+
+}
+
+function runTimer() {
+
+    setInterval(function() {
+
+        if (timer !== 0) {
+
+                timer--;
+
+                timerSpan.textContent = timer;
+
+        } else {
+
+            return;
+
+            // call on function that replaces choice buttons with All Done page (hint: you already have the code in lines 149-183, just make it its own function and call when needed)
+
+        }
+
+    }, 1000);
 
 }
 
 // When start quiz button is clicked, remove start screen elements, display first question/buttons & start timer countdown
 
 startButton.addEventListener("click", function() {
+
+    runTimer();
 
     mainElement.textContent = "";
 
