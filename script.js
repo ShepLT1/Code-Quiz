@@ -281,11 +281,25 @@ initialsSubmit.addEventListener("click", function(event) {
 
     }
 
-    scoreDiv.append(returnBtn);
+    choiceAndScoreDiv.append(returnBtn);
 
-    scoreDiv.append(clearBtn);
+    choiceAndScoreDiv.append(clearBtn);
 
 });
+
+returnBtn.addEventListener("click", function() {
+
+    location.reload();
+
+});
+
+clearBtn.addEventListener("click", function() {
+
+    localStorage.clear();
+
+    scoreDiv.innerHTML = "";
+
+})
 
 //If user clicked correct answer, display "Correct!" underneath the buttons of new question
 
