@@ -1,26 +1,6 @@
 // For going from question to question, we are just changing the inner html of the question and the possible answers within the buttons
 
-var startButton = document.getElementById("start-quiz-btn");
-
-var headerElement = document.querySelector("header");
-
-var mainElement = document.querySelector("main");
-
 var newTitle = document.createElement("h2");
-
-var choiceBtnArr = [];
-
-var j = 0;
-
-var choicesArrLength = questions[j].choices.length;
-
-var timer = questions.length * 15;
-
-var timerSpan = document.getElementById("timer");
-
-var next = "";
-
-var choiceBtn = "";
 
 var returnBtn = document.createElement("button");
 
@@ -38,11 +18,39 @@ var initialsInput = document.createElement("input");
 
 var initialsSubmit = document.createElement("button");
 
+var viewHighScores = document.getElementById("view-high-scores");
+
+var startButton = document.getElementById("start-quiz-btn");
+
+var timerSpan = document.getElementById("timer");
+
+var headerElement = document.querySelector("header");
+
+var mainElement = document.querySelector("main");
+
+var startScreen = document.getElementsByClassName("startScreen");
+
+var choiceBtnArr = [];
+
+var j = 0;
+
+var choicesArrLength = questions[j].choices.length;
+
+var timer = questions.length * 15;
+
+var next = "";
+
+var choiceBtn = "";
+
 var highScores = JSON.parse(localStorage.getItem("highScores"));
 
 var runTimer = "";
 
 //Write function that replaces question title & choices with next question h2 & buttons, respectively. Do this by inputting value of title property of selected indice for h2 textContent & values of choices property for button textContent
+
+choiceAndScoreDiv.setAttribute("id", "choice-score");
+
+outcomeDiv.setAttribute("id", "outcome");
 
 returnBtn.setAttribute("id", "returnBtn");
 
@@ -56,19 +64,17 @@ returnBtn.textContent = "Return to Start";
 
 clearBtn.textContent = "Clear Highscores";
 
-// replace repeated code with the 2 functions below
+for (i = 0; i < choicesArrLength; i++) {
 
-function setAtt(x, y, z) {
+    choiceBtnArr = document.createElement("button");
 
-    x.setAttribute(String(y), String(z));
+    choiceBtnArr.setAttribute("id", i);
 
-}
+    choiceBtnArr.setAttribute("class", "btn btn-info choice-btn");
 
-function create(x, y) {
+    choiceAndScoreDiv.appendChild(choiceBtnArr);
 
-    x.createElement(String(y));
-
-}
+};
 
 function nextQuestion() {
 
@@ -89,6 +95,42 @@ function nextQuestion() {
         next = false;
 
     };
+
+}
+
+function showHighScores() {
+
+    highScores.sort(function(a, b) {
+
+        return b.score - a.score;
+
+    });
+
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+
+    headerElement.textContent = "";
+
+    newTitle.textContent = "Highscores";
+
+    scoreDiv.textContent = "";
+
+    for (var n = 0; n < highScores.length; n++) {
+
+        var eachScoreDiv = document.createElement("div");
+
+        eachScoreDiv.setAttribute("id", n);
+
+        var eachHighScore = highScores[n].user + ": " + highScores[n].score;
+
+        scoreDiv.append(eachScoreDiv);
+
+        document.getElementById(n).append(eachHighScore);
+
+    }
+
+    choiceAndScoreDiv.append(returnBtn);
+
+    choiceAndScoreDiv.append(clearBtn);
 
 }
 
@@ -114,9 +156,37 @@ function stopTimer() {
 
 }
 
+viewHighScores.addEventListener("click", function(event) {
+
+    event.preventDefault();
+
+    if (highScores === null) {
+
+        alert("No highscores on file. Please complete a quiz and submit your score in order to view the highscores list.");
+
+    } else {
+    
+        mainElement.textContent = "";
+
+        mainElement.append(newTitle);
+
+        mainElement.append(choiceAndScoreDiv);
+
+        choiceAndScoreDiv.textContent = "";
+
+        choiceAndScoreDiv.append(scoreDiv);
+
+        showHighScores();
+
+    }
+
+});
+
 // When start quiz button is clicked, remove start screen elements, display first question/buttons & start timer countdown
 
 startButton.addEventListener("click", function() {
+
+    timerSpan.textContent = timer;
 
     runTimer = setInterval(decreaseTime, 1000);
 
@@ -124,23 +194,7 @@ startButton.addEventListener("click", function() {
 
     mainElement.appendChild(newTitle);
 
-    choiceAndScoreDiv.setAttribute("id", "choice-score");
-
     mainElement.appendChild(choiceAndScoreDiv);
-
-    for (i = 0; i < choicesArrLength; i++) {
-
-        choiceBtnArr = document.createElement("button");
-
-        choiceBtnArr.setAttribute("id", i);
-
-        choiceBtnArr.setAttribute("class", "btn btn-info choice-btn");
-
-        choiceAndScoreDiv.appendChild(choiceBtnArr);
-
-    };
-
-    outcomeDiv.setAttribute("id", "outcome");
 
     mainElement.appendChild(outcomeDiv);
 
@@ -251,39 +305,9 @@ initialsSubmit.addEventListener("click", function(event) {
 
     });
 
-    highScores.sort(function(a, b) {
-
-        return b.score - a.score;
-
-    });
-
-    localStorage.setItem("highScores", JSON.stringify(highScores));
-
-    headerElement.textContent = "";
-
-    newTitle.textContent = "Highscores";
-
-    scoreDiv.textContent = "";
-
     choiceAndScoreDiv.removeChild(document.getElementById("initials-form"));
 
-    for (var n = 0; n < highScores.length; n++) {
-
-        var eachScoreDiv = document.createElement("div");
-
-        eachScoreDiv.setAttribute("id", n);
-
-        var eachHighScore = highScores[n].user + ": " + highScores[n].score;
-
-        scoreDiv.append(eachScoreDiv);
-
-        document.getElementById(n).append(eachHighScore);
-
-    }
-
-    choiceAndScoreDiv.append(returnBtn);
-
-    choiceAndScoreDiv.append(clearBtn);
+    showHighScores();
 
 });
 
@@ -299,7 +323,7 @@ clearBtn.addEventListener("click", function() {
 
     scoreDiv.innerHTML = "";
 
-})
+});
 
 //If user clicked correct answer, display "Correct!" underneath the buttons of new question
 
