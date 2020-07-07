@@ -1,4 +1,6 @@
-// For going from question to question, we are just changing the inner html of the question and the possible answers within the buttons
+
+
+// variables
 
 var newTitle = document.createElement("h2");
 
@@ -46,11 +48,23 @@ var highScores = JSON.parse(localStorage.getItem("highScores"));
 
 var runTimer = "";
 
-//Write function that replaces question title & choices with next question h2 & buttons, respectively. Do this by inputting value of title property of selected indice for h2 textContent & values of choices property for button textContent
+
+
+// set attributes
 
 choiceAndScoreDiv.setAttribute("id", "choice-score");
 
 outcomeDiv.setAttribute("id", "outcome");
+
+scoreDiv.setAttribute("id", "score-div");
+
+initialsForm.setAttribute("id", "initials-form");
+
+initialsInput.setAttribute("type", "text");
+
+initialsSubmit.setAttribute("type", "submit");
+
+initialsSubmit.setAttribute("class", "btn btn-info");
 
 returnBtn.setAttribute("id", "returnBtn");
 
@@ -60,9 +74,21 @@ clearBtn.setAttribute("id", "clearBtn");
 
 clearBtn.setAttribute("class", "btn btn-info");
 
+
+
+// Text content
+
+initialsSubmit.textContent = "Submit";
+
+initialsForm.innerHTML = "Enter initials: ";
+
 returnBtn.textContent = "Return to Start";
 
 clearBtn.textContent = "Clear Highscores";
+
+
+
+// Global loops
 
 for (i = 0; i < choicesArrLength; i++) {
 
@@ -75,6 +101,10 @@ for (i = 0; i < choicesArrLength; i++) {
     choiceAndScoreDiv.appendChild(choiceBtnArr);
 
 };
+
+
+
+// functions
 
 function nextQuestion() {
 
@@ -120,7 +150,9 @@ function showHighScores() {
 
         eachScoreDiv.setAttribute("id", n);
 
-        var eachHighScore = highScores[n].user + ": " + highScores[n].score;
+        var user = highScores[n].user.toUpperCase();
+
+        var eachHighScore = user + ": " + highScores[n].score;
 
         scoreDiv.append(eachScoreDiv);
 
@@ -155,6 +187,10 @@ function stopTimer() {
     clearInterval(runTimer);
 
 }
+
+
+
+// on click events
 
 viewHighScores.addEventListener("click", function(event) {
 
@@ -242,41 +278,19 @@ mainElement.addEventListener("click", function(event) {
 
         } else {
 
-            timerSpan.textContent = timer;
-
             stopTimer();
 
-            for (m = 0; m < i; m++) {
-
-                choiceBtn = document.getElementById(m);
-
-                choiceBtn.parentElement.removeChild(choiceBtn);
-
-            }
+            choiceAndScoreDiv.textContent = "";
 
             // Turn following repetitive code into functions & group variables, setAttributes, appendChild, etc. into sections to look cleaner
 
             newTitle.textContent = "All Done!";
 
-            scoreDiv.setAttribute("id", "score-div");
-
-            initialsForm.setAttribute("id", "initials-form");
-
-            initialsInput.setAttribute("type", "text");
-
-            initialsSubmit.setAttribute("type", "submit");
-
-            initialsSubmit.setAttribute("class", "btn btn-info");
-
             scoreDiv.textContent = "Your final score is " + timer + ".";
-
-            initialsSubmit.textContent = "Submit";
 
             choiceAndScoreDiv.appendChild(scoreDiv);
 
             choiceAndScoreDiv.appendChild(initialsForm);
-
-            initialsForm.innerHTML = "Enter initials: ";
 
             initialsForm.appendChild(initialsInput);
 
@@ -292,22 +306,36 @@ initialsSubmit.addEventListener("click", function(event) {
 
     event.preventDefault();
 
-    if (highScores === null) {
+    var firstInitial = initialsInput.value.charAt(0);
 
-        highScores = [];
+    var secondInitial = initialsInput.value.charAt(1);
 
-    };
+    var thirdInitial = initialsInput.value.charAt(2);
 
-    highScores.push({
+    if (isNaN(firstInitial) && isNaN(secondInitial) && isNaN(thirdInitial) && initialsInput.value.length === 3) {
+    
+        if (highScores === null) {
 
-        user: initialsInput.value.trim(),
-        score: timer
+            highScores = [];
 
-    });
+        };
 
-    choiceAndScoreDiv.removeChild(document.getElementById("initials-form"));
+        highScores.push({
 
-    showHighScores();
+            user: initialsInput.value.trim(),
+            score: timer
+
+        });
+
+        choiceAndScoreDiv.removeChild(document.getElementById("initials-form"));
+
+        showHighScores();
+
+    } else {
+
+        alert("Please enter exactly 3 letters and/or special characters.");
+
+    }
 
 });
 
