@@ -80,7 +80,7 @@ clearBtn.setAttribute("class", "btn btn-info");
 
 initialsSubmit.textContent = "Submit";
 
-initialsForm.innerHTML = "Enter initials: ";
+initialsForm.innerHTML = "Enter initials:";
 
 returnBtn.textContent = "Return to Start";
 
@@ -277,6 +277,8 @@ mainElement.addEventListener("click", function(event) {
             nextQuestion();
 
         } else {
+
+            timerSpan.textContent = timer;
 
             stopTimer();
 

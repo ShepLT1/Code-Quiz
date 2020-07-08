@@ -1,7 +1,7 @@
 var questions = [
 
     {
-        title: 'Which of the following is the correct syntax for assigning a value to a key in local storage? localStorage_____________("key", value);',
+        title: 'Which of the following is the correct syntax for assigning a value to a key in local storage? localStorage____("key", value);',
         choices: [".getAttribute", ".setAttribute", ".getItem", ".setItem"],
         answer: ".setItem"
 
@@ -13,7 +13,7 @@ var questions = [
 
     },
     {
-        title: "The body tag of an html file contains a header and main tag. There are 3 paragraph tags within the main tag, with comments directly above each paragraph tag. Which of the following will console log the 2nd paragraph tag? console.log(document.body_____________)",
+        title: "The body tag of an html file contains a header and main tag. There are 3 paragraph tags within the main tag, with comments directly above each paragraph tag. Which of the following will call on the 2nd paragraph tag? document.body____",
         choices: [".children[2].childNode[2]", ".children[1].childNode[1]", ".children[2].children[2]", ".children[1].children[1]"],
         answer: ".children[1].children[1]"
 
