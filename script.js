@@ -2,50 +2,65 @@
 
 // variables
 
+// Question, All done, & Highscores titles
 var newTitle = document.createElement("h2");
 
+// Return to Start screen button
 var returnBtn = document.createElement("button");
 
+// Clear highscores button
 var clearBtn = document.createElement("button");
 
+// Container for question choice buttons, final score & initials form, and highscores
 var choiceAndScoreDiv = document.createElement("div");
 
+// Container for Correct/Incorrect notifications
 var outcomeDiv = document.createElement("div");;
 
+// Container for final score and highscores
 var scoreDiv = document.createElement("div");
 
+// Form where intials are entered for logging highscores
 var initialsForm = document.createElement("form");
 
+// Text box where user can input initials for highscore list
 var initialsInput = document.createElement("input");
 
+// Submit button for initials form
 var initialsSubmit = document.createElement("button");
 
+// View highscores link
 var viewHighScores = document.getElementById("view-high-scores");
 
+// Start quiz button
 var startButton = document.getElementById("start-quiz-btn");
 
+// Timer value
 var timerSpan = document.getElementById("timer");
 
 var headerElement = document.querySelector("header");
 
 var mainElement = document.querySelector("main");
 
+// Groups all start screen elements
 var startScreen = document.getElementsByClassName("startScreen");
 
+// Initial value for array of question choice buttons
 var choiceBtnArr = [];
 
+// Initial value for question counter variable
 var j = 0;
 
+// Returns amount of questions in question array (beginning with 0)
 var choicesArrLength = questions[j].choices.length;
 
+// Initial value of timer at start of quiz
 var timer = questions.length * 15;
 
-var next = "";
-
-var choiceBtn = "";
-
+// Grabs highscores list from local storage and converts strings to object
 var highScores = JSON.parse(localStorage.getItem("highScores"));
 
+// Defines runTimer variable to be called on by stopTimer() to stop timer
 var runTimer = "";
 
 
@@ -90,6 +105,7 @@ clearBtn.textContent = "Clear Highscores";
 
 // Global loops
 
+// Generates question choice buttons on page load
 for (i = 0; i < choicesArrLength; i++) {
 
     choiceBtnArr = document.createElement("button");
@@ -106,9 +122,10 @@ for (i = 0; i < choicesArrLength; i++) {
 
 // functions
 
+// Triggers next question to be displayed following completion of previous question
 function nextQuestion() {
 
-    next = true;
+    var next = true;
 
     while (next && j < questions.length) {
 
@@ -128,6 +145,7 @@ function nextQuestion() {
 
 }
 
+// Shows highscores from local storage
 function showHighScores() {
 
     highScores.sort(function(a, b) {
@@ -166,6 +184,7 @@ function showHighScores() {
 
 }
 
+// Incrementally subtracts time from timer
 function decreaseTime() {
 
     if (timer !== 0) {
@@ -182,6 +201,7 @@ function decreaseTime() {
 
 }
 
+// Stops timer
 function stopTimer() {
 
     clearInterval(runTimer);
@@ -192,6 +212,7 @@ function stopTimer() {
 
 // on click events
 
+// Shows high scores page when View Highscores link is selected
 viewHighScores.addEventListener("click", function(event) {
 
     event.preventDefault();
@@ -218,8 +239,7 @@ viewHighScores.addEventListener("click", function(event) {
 
 });
 
-// When start quiz button is clicked, remove start screen elements, display first question/buttons & start timer countdown
-
+// Starts quiz and timer
 startButton.addEventListener("click", function() {
 
     timerSpan.textContent = timer;
@@ -236,12 +256,9 @@ startButton.addEventListener("click", function() {
 
     nextQuestion();
 
-    // run function that replaces question title & choices with next question h2 & buttons, respectively
-
 });
 
-//When user clicks a button, add 1 to the counting variable, replace previous question textContent with textContent of new question associated with the next indice, and change boolean value to stop the loop until next button is clicked
-
+// Determines whether correct or incorrect answer is selected upon choice button click, subtracts additional time if incorrect, and displays "All Done" screen once last question is answered
 mainElement.addEventListener("click", function(event) {
 
     if (event.target.classList.contains("choice-btn")) {
@@ -284,8 +301,6 @@ mainElement.addEventListener("click", function(event) {
 
             choiceAndScoreDiv.textContent = "";
 
-            // Turn following repetitive code into functions & group variables, setAttributes, appendChild, etc. into sections to look cleaner
-
             newTitle.textContent = "All Done!";
 
             scoreDiv.textContent = "Your final score is " + timer + ".";
@@ -304,6 +319,7 @@ mainElement.addEventListener("click", function(event) {
 
 });
 
+// Checks that initials entered are non-numerical and 3 characters long & stores initials and score in highscores array
 initialsSubmit.addEventListener("click", function(event) {
 
     event.preventDefault();
@@ -341,12 +357,14 @@ initialsSubmit.addEventListener("click", function(event) {
 
 });
 
+// Displays start screen when "Return to Start" is clicked
 returnBtn.addEventListener("click", function() {
 
     location.reload();
 
 });
 
+// Clears highscores from local storage when "Clear Highscores" button is clicked
 clearBtn.addEventListener("click", function() {
 
     localStorage.clear();
@@ -354,19 +372,3 @@ clearBtn.addEventListener("click", function() {
     scoreDiv.innerHTML = "";
 
 });
-
-//If user clicked correct answer, display "Correct!" underneath the buttons of new question
-
-    //If wrong answer, display "Incorrect" underneath the buttons and subtract 15 seconds from the timer
-
-//Once loop completes (i.e. last question is answered), stop timer, display time remaining on timer as final score, and display text input with submit button where user can enter initials
-
-//On submit, If no or other than initals entered, alert that 2 digit initals are needed
-
-    //If 2 digit initals entered, add key (iniials) & value (highscore) to local storage & return all high scores from local storage
-
-    //give user a button to clear highscores from local storage or go back to start page
-
-
-
-

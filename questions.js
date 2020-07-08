@@ -1,3 +1,4 @@
+// Questions array with question, choices, and answers
 var questions = [
 
     {
