@@ -13,8 +13,8 @@ var questions = [
 
     },
     {
-        title: "The body tag of an html file contains a header and main tag. There are 3 paragraph tags within the main tag, with comments directly above each paragraph tag. Which of the following will call on the 2nd paragraph tag? document.body____",
-        choices: [".children[2].childNode[2]", ".children[1].childNode[1]", ".children[2].children[2]", ".children[1].children[1]"],
+        title: "The body tag of an html file contains a header and main tag. There are 3 paragraph tags within the main tag. Which of the following will call on the 2nd paragraph tag? document.body____",
+        choices: [".children[2].childNode[2]", ".children[1].childNode[2]", ".children[2].children[2]", ".children[1].children[1]"],
         answer: ".children[1].children[1]"
 
     },

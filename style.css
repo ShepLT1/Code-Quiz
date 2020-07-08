@@ -7,6 +7,7 @@ body {
 
 }
 
+/* Header container styling */
 header {
 
     height: 50px;
@@ -16,12 +17,14 @@ header {
 
 }
 
+/* View Highscores styling */
 a {
 
     color: rgb(244, 244, 244);
 
 }
 
+/* View Highscores styling while hovering */
 a:hover {
 
     color: #41c4d8;
@@ -29,6 +32,7 @@ a:hover {
 
 }
 
+/* Main content container styling */
 main {
 
     margin: 0 auto;
@@ -36,6 +40,7 @@ main {
 
 }
 
+/* Start Page title styling */
 h1 {
 
     padding-bottom: 15px;
@@ -138,6 +143,13 @@ input:focus {
 
     }
 
+    .choice-btn {
+
+        height: 40px;
+        padding: 15px;
+
+    }
+
 }
 
 @media screen and (max-width: 576px) {
@@ -196,7 +208,7 @@ input:focus {
 
 }
 
-@media screen and (max-width: 325px) {
+@media screen and (max-width: 320px) {
 
     h1 {
 
